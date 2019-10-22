@@ -1,5 +1,6 @@
 let selects = document.querySelector(".pokemon-dropdown-select")
 let pokemonProfile = document.querySelector('.pokemon-post-container')
+let followingPosts = document.querySelector('.following-posts-container')
 
 let displayForm = false
 
@@ -20,6 +21,7 @@ selects.addEventListener('change', evt => {
     get(`http://localhost:3000/pokemons/${selected}`)
     .then(respJSON => {
         createProfile(respJSON)
+        createFollowingDropdown(respJSON)
     })
 })
 
@@ -37,7 +39,6 @@ return fetch(url)
 function createProfile(obj){
     
     removeChildren(pokemonProfile)
-    console.log(obj.posts)
     
     let profileCard = document.createElement('div')
         let profileName = document.createElement('h3')
@@ -129,4 +130,20 @@ function formDisplay(toggleForm){
     } else {
         toggleForm.style.display = 'none'
     }
+}
+
+function createFollowingDropdown(obj){
+    console.log(obj.following)
+    let followingSelection = document.createElement('select')
+        followingSelection.className = 'pokemon-dropdown-select'
+        followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
+
+        obj.following.forEach(following => {
+            let followingOption = document.createElement('option')
+                followingOption.className = 'selected'
+                followingOption.value = following.dataId
+                followingOption.innerText = following.species
+            followingSelection.append(followingOption)
+        })
+    followingPosts.append(followingSelection)
 }
