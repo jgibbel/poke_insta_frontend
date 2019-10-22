@@ -134,6 +134,7 @@ function formDisplay(toggleForm){
 
 function createFollowingDropdown(obj){
     console.log(obj.following)
+    removeChildren(followingPosts)
     let followingSelection = document.createElement('select')
         followingSelection.className = 'pokemon-dropdown-select'
         followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
