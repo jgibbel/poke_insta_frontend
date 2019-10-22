@@ -37,6 +37,7 @@ return fetch(url)
 function createProfile(obj){
     
     removeChildren(pokemonProfile)
+    console.log(obj.posts)
     
     let profileCard = document.createElement('div')
         let profileName = document.createElement('h3')
@@ -98,7 +99,24 @@ function createProfile(obj){
                 formDisplay(toggleForm)
             })
 
-    profileCard.append(profileName, followerCount, profilePic, formContainer, toggleForm)
+        let profilePostsContainer = document.createElement('div')
+            profilePostsContainer.className = 'pokemon-posts-container'
+
+        obj.posts.forEach(post => {
+            let postDiv = document.createElement('div')
+                let postImage = document.createElement('img')
+                    postImage.src = post.image
+                    postImage.height = '125'
+                    postImage.width = '100'
+
+                let postCaption = document.createElement('p')
+                    postCaption.innerText = post.caption
+
+            postDiv.append(postImage, postCaption)
+            profilePostsContainer.append(postDiv)
+        })
+
+    profileCard.append(profileName, followerCount, profilePic, formContainer, toggleForm, profilePostsContainer)
     pokemonProfile.append(profileCard)
 }
 
