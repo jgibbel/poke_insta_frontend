@@ -1,6 +1,9 @@
 let selects = document.querySelector(".pokemon-dropdown-select")
-let pokemonProfile = document.querySelector('.pokemon-post-container')
+let pokemonProfile = document.querySelector('.profile-container')
 let followingPosts = document.querySelector('.following-posts-container')
+let followingSelection = document.querySelector('.following-dropdown-select')
+let followingDropdown = followingPosts.querySelector('.following-dropdown')
+let chosenFollow = followingPosts.querySelector('.selected-posts-container')
 
 let displayForm = false
 
@@ -21,7 +24,8 @@ selects.addEventListener('change', evt => {
     get(`http://localhost:3000/pokemons/${selected}`)
     .then(respJSON => {
         removeChildren(pokemonProfile)
-        removeChildren(followingPosts)
+        removeChildren(followingSelection)
+        removeChildren(chosenFollow)
 
         createProfile(respJSON)
         createFollowingDropdown(respJSON)
@@ -136,25 +140,79 @@ function formDisplay(toggleForm){
 }
 
 function createFollowingDropdown(obj){
-    let followingSelection = document.createElement('select')
-        followingSelection.className = 'pokemon-dropdown-select'
+        let i = 0
         followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
-
         obj.follows.forEach(following => {
             let followingOption = document.createElement('option')
                 followingOption.className = 'selected'
-                followingOption.value = following.following_id
+                followingOption.value = i
                 followingOption.innerText = following.following_name
             followingSelection.append(followingOption)
+            i += 1
         })
 
         followingSelection.addEventListener('change', evt => {
-            createPosts(obj)
+            let x = evt.target.value
+            createPosts(obj.follows[x])
         })
 
-    followingPosts.append(followingSelection)
+    followingDropdown.append(followingSelection)
 }
 
 function createPosts(obj){
-    console.log(obj)
+    removeChildren(chosenFollow)
+    obj.posts.forEach(function(post){
+        makePostCard(post, obj)
+    })
+
+}
+// to edit:
+
+function makePostCard(postObj, parentObj) {
+    let postCard = document.createElement('div')
+        postCard.className = "post-card"
+
+    let proPicDiv = document.createElement('div')
+        proPicDiv.className = "profile-link"
+    let propic = document.createElement("img") 
+        propic.src = parentObj.image
+        propic.alt = "Profile Thumbnail" 
+        propic.height  = 25 
+        propic.width = 25 
+        proPicDiv.appendChild(propic) 
+        // proPicDiv.addEventListener("click", function(e) {} )
+    
+    let mainImageDiv = document.createElement('div')
+        mainImageDiv.className = "post-image"
+    let pic = document.createElement("img") 
+        pic.src = postObj.image 
+        pic.alt = "Image File" 
+        pic.height  = 150 
+        pic.width = 150
+        mainImageDiv.appendChild(pic) 
+
+    let captionDiv = document.createElement("div")
+        captionDiv.className = "post-caption"
+    let caption = document.createElement("p")
+        caption.innerText = postObj.caption 
+        captionDiv.appendChild(caption)
+    
+    let likesDiv = document.createElement('div')
+        likesDiv.className = "post-likes" 
+    let likeBtn = document.createElement("button") 
+        likeBtn.innerText = "Like"
+        // add like functionality later 
+    let likes = document.createElement("p")
+        likes.innerText = "n/a" 
+        // change serializers so likes come attached to each post 
+        likesDiv.appendChild(likeBtn) 
+        likesDiv.appendChild(likes)  
+
+    postCard.appendChild(proPicDiv)
+    postCard.appendChild(mainImageDiv)
+    postCard.appendChild(captionDiv)
+    postCard.appendChild(likesDiv)
+
+    chosenFollow.appendChild(postCard)
+
 }
