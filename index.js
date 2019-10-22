@@ -20,6 +20,9 @@ selects.addEventListener('change', evt => {
     let selected = evt.target.value
     get(`http://localhost:3000/pokemons/${selected}`)
     .then(respJSON => {
+        removeChildren(pokemonProfile)
+        removeChildren(followingPosts)
+
         createProfile(respJSON)
         createFollowingDropdown(respJSON)
     })
@@ -38,7 +41,6 @@ return fetch(url)
 
 function createProfile(obj){
     
-    removeChildren(pokemonProfile)
     
     let profileCard = document.createElement('div')
         let profileName = document.createElement('h3')
@@ -124,27 +126,35 @@ function createProfile(obj){
 //This toggle function still needs work---------------------------------------
 function formDisplay(toggleForm){
     displayForm = !displayForm
+    let formContainer = document.querySelector('.form-container')
 
     if (displayForm){
-        toggleForm.style.display = 'block'
+        formContainer.style.display = 'block'
     } else {
-        toggleForm.style.display = 'none'
+        formContainer.style.display = 'none'
     }
 }
 
 function createFollowingDropdown(obj){
-    console.log(obj)
-    removeChildren(followingPosts)
     let followingSelection = document.createElement('select')
         followingSelection.className = 'pokemon-dropdown-select'
         followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
 
-        obj.following.forEach(following => {
+        obj.follows.forEach(following => {
             let followingOption = document.createElement('option')
                 followingOption.className = 'selected'
-                followingOption.value = following.dataId
-                followingOption.innerText = following.species
+                followingOption.value = following.following_id
+                followingOption.innerText = following.following_name
             followingSelection.append(followingOption)
         })
+
+        followingSelection.addEventListener('change', evt => {
+            createPosts(obj)
+        })
+
     followingPosts.append(followingSelection)
+}
+
+function createPosts(obj){
+    console.log(obj)
 }
