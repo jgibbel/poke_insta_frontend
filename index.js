@@ -123,10 +123,10 @@ function createProfile(obj){
 //This toggle function still needs work---------------------------------------
 function formDisplay(toggleForm){
     displayForm = !displayForm
-
+    let formContainer = document.querySelector('.form-container')
     if (displayForm){
-        toggleForm.style.display = 'block'
+        formContainer.style.display = 'block'
     } else {
-        toggleForm.style.display = 'none'
+        formContainer.style.display = 'none'
     }
 }
