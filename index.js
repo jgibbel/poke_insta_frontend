@@ -1,5 +1,7 @@
 let selects = document.querySelector(".pokemon-dropdown-select")
 let pokemonProfile = document.querySelector('.profile-container')
+let pokemonProfCard = pokemonProfile.querySelector('.profile-card')
+let myPostsDiv = pokemonProfile.querySelector('.my-posts')
 let followingPosts = document.querySelector('.following-posts-container')
 let followingSelection = document.querySelector('.following-dropdown-select')
 let followingDropdown = followingPosts.querySelector('.following-dropdown')
@@ -23,7 +25,8 @@ selects.addEventListener('change', evt => {
     let selected = evt.target.value
     get(`http://localhost:3000/pokemons/${selected}`)
     .then(respJSON => {
-        removeChildren(pokemonProfile)
+        removeChildren(pokemonProfCard)
+        removeChildren(myPostsDiv)
         removeChildren(followingSelection)
         removeChildren(chosenFollow)
 
@@ -44,8 +47,6 @@ return fetch(url)
 }
 
 function createProfile(obj){
-    
-    
     let profileCard = document.createElement('div')
         let profileName = document.createElement('h3')
             profileName.innerText = `${obj.species}`
@@ -75,6 +76,7 @@ function createProfile(obj){
                     formHeader.innerText = 'New Post'
 
                 let captionInput = document.createElement('input')
+                    captionInput.name = 'caption'
                     captionInput.type = 'text'
                     captionInput.value = ""
                     captionInput.placeholder = "Caption..."
@@ -83,6 +85,7 @@ function createProfile(obj){
                 let br = document.createElement('br')
 
                 let imageInput = document.createElement('input')
+                    imageInput.name = 'image'
                     imageInput.type = 'text'
                     imageInput.value = ""
                     imageInput.placeholder = "Image URL..."
@@ -95,10 +98,13 @@ function createProfile(obj){
                     submitForm.className = 'submit'
 
             createPostForm.append(formHeader, captionInput, br, imageInput, br, submitForm)
+            createPostForm.addEventListener('submit', evt => {
+                evt.preventDefault()
+                submitNewPost(evt, obj)
+            })
 
         formContainer.append(createPostForm)
 
-        //Still need to work on toggling the form to display-------------------------
         let toggleForm = document.createElement('p')
             // toggleForm.style = 'text-align: center'
             toggleForm.innerText = '+ Post'
@@ -110,26 +116,62 @@ function createProfile(obj){
             profilePostsContainer.className = 'pokemon-posts-container'
 
         obj.posts.forEach(post => {
-            let postDiv = document.createElement('div')
-                let postImage = document.createElement('img')
-                    postImage.src = post.image
-                    postImage.height = '130'
-                    postImage.width = '100'
+            let postCard = makePostCard(post, obj)
 
-                let postCaption = document.createElement('p')
-                    postCaption.innerText = post.caption
-
-            postDiv.append(postImage, postCaption)
-            profilePostsContainer.append(postDiv)
+                let deleteBtn = document.createElement('button')
+                    deleteBtn.className = 'delete-post'
+                    deleteBtn.innerText = 'Delete Post'
+                    deleteBtn.addEventListener('click', evt => {  
+                        postCard.remove()
+                        deletePost(post)
+                    })
+            
+            postCard.append(deleteBtn)
+            myPostsDiv.append(postCard)
         })
 
     profileCard.append(profileName, followerCount, profilePic, formContainer, toggleForm, profilePostsContainer)
-    pokemonProfile.append(profileCard)
+    pokemonProfCard.prepend(profileCard)
 }
 
-//This toggle function still needs work---------------------------------------
+function deletePost(post){
+    // console.log(post)
+    fetch(`http://localhost:3000/posts/${post.id}`, {
+        method: 'DELETE'
+    })
+    .then(resp => resp.json())
+    .then(respJSON => {
+        console.log(respJSON)
+    })
+}
+
+function submitNewPost(evt, obj){
+    console.log(obj)
+    let newCaption = evt.target.caption.value
+    let newImage = evt.target.image.value
+    fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            image: newImage,
+            caption: newCaption,
+            pokemon_id: obj.id
+        })
+    })
+    .then(resp => resp.json())
+    .then(respJSON => {
+        console.log(respJSON)
+        let newPost = makePostCard(respJSON, obj)
+        myPostsDiv.prepend(newPost)
+    })
+}
+
 function formDisplay(toggleForm){
     displayForm = !displayForm
+
     let formContainer = document.querySelector('.form-container')
 
     if (displayForm){
@@ -146,7 +188,7 @@ function createFollowingDropdown(obj){
             let followingOption = document.createElement('option')
                 followingOption.className = 'selected'
                 followingOption.value = i
-                followingOption.innerText = following.following_name
+                followingOption.innerText = following.species
             followingSelection.append(followingOption)
             i += 1
         })
@@ -162,57 +204,87 @@ function createFollowingDropdown(obj){
 function createPosts(obj){
     removeChildren(chosenFollow)
     obj.posts.forEach(function(post){
-        makePostCard(post, obj)
+        let postCard = makePostCard(post, obj)
+        chosenFollow.append(postCard)
     })
-
 }
-// to edit:
+
 
 function makePostCard(postObj, parentObj) {
     let postCard = document.createElement('div')
         postCard.className = "post-card"
 
-    let proPicDiv = document.createElement('div')
-        proPicDiv.className = "profile-link"
-    let propic = document.createElement("img") 
-        propic.src = parentObj.image
-        propic.alt = "Profile Thumbnail" 
-        propic.height  = 25 
-        propic.width = 25 
-        proPicDiv.appendChild(propic) 
-        // proPicDiv.addEventListener("click", function(e) {} )
-    
-    let mainImageDiv = document.createElement('div')
-        mainImageDiv.className = "post-image"
-    let pic = document.createElement("img") 
-        pic.src = postObj.image 
-        pic.alt = "Image File" 
-        pic.height  = 150 
-        pic.width = 150
+        let proPicDiv = document.createElement('div')
+            proPicDiv.className = "profile-link"
+
+            let propic = document.createElement("img") 
+                propic.src = parentObj.image
+                propic.alt = "Profile Thumbnail" 
+                propic.height  = 25 
+                propic.width = 25 
+
+            let profileN = document.createElement('span')
+                profileN.className = 'profile-icon-name'
+                profileN.innerText = parentObj.species
+
+        proPicDiv.append(propic, profileN) 
+        
+        let mainImageDiv = document.createElement('div')
+            mainImageDiv.className = "post-image"
+
+            let pic = document.createElement("img") 
+                pic.src = postObj.image 
+                pic.alt = "Image File" 
+                pic.height  = 160 
+                pic.width = 135
+
         mainImageDiv.appendChild(pic) 
 
-    let captionDiv = document.createElement("div")
-        captionDiv.className = "post-caption"
-    let caption = document.createElement("p")
-        caption.innerText = postObj.caption 
+        let captionDiv = document.createElement("div")
+            captionDiv.className = "post-caption"
+
+            let caption = document.createElement("p")
+                caption.innerText = postObj.caption 
+
         captionDiv.appendChild(caption)
-    
-    let likesDiv = document.createElement('div')
-        likesDiv.className = "post-likes" 
-    let likeBtn = document.createElement("button") 
-        likeBtn.innerText = "Like"
-        // add like functionality later 
-    let likes = document.createElement("p")
-        likes.innerText = postObj['likes_count']  
-        // change serializers so likes come attached to each post 
-        likesDiv.appendChild(likeBtn) 
-        likesDiv.appendChild(likes)  
+        
+        let likesDiv = document.createElement('div')
+            likesDiv.className = "post-likes" 
 
-    postCard.appendChild(proPicDiv)
-    postCard.appendChild(mainImageDiv)
-    postCard.appendChild(captionDiv)
-    postCard.appendChild(likesDiv)
+            let likeBtn = document.createElement("button") 
+                likeBtn.innerText = "Like"
+                
+                let likes = document.createElement("p")
+                    likes.innerHTML = ' likes'
 
-    chosenFollow.appendChild(postCard)
+                    let likes_count = document.createElement('span')
+                        likes_count.innerText = postObj.likes_count 
+                        likes.prepend(likes_count)
 
+                    likeBtn.addEventListener('click', evt => {
+                        likes_count.innerText = parseInt(likes_count.innerText) +  1
+                        addLike(postObj)
+                    })
+
+        likesDiv.append(likeBtn, likes)  
+
+    postCard.append(proPicDiv, mainImageDiv, captionDiv, likesDiv)
+
+    return postCard
+}
+
+function addLike(obj){
+    let pokemon_id = obj.pokemon_id
+    let post_id = obj.id
+    fetch('http://localhost:3000/likes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            post_id: post_id,
+            pokemon_id: pokemon_id
+        })
+    })
 }
