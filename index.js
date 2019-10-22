@@ -107,7 +107,7 @@ function createProfile(obj){
             let postDiv = document.createElement('div')
                 let postImage = document.createElement('img')
                     postImage.src = post.image
-                    postImage.height = '125'
+                    postImage.height = '130'
                     postImage.width = '100'
 
                 let postCaption = document.createElement('p')
@@ -133,7 +133,7 @@ function formDisplay(toggleForm){
 }
 
 function createFollowingDropdown(obj){
-    console.log(obj.following)
+    console.log(obj)
     removeChildren(followingPosts)
     let followingSelection = document.createElement('select')
         followingSelection.className = 'pokemon-dropdown-select'
