@@ -3,6 +3,19 @@
     width: stretch;
     height: auto;
     display: none;
-    background: #515DA2;
-    opacity: .8;
+    /* background: #515DA2; */
+}
+
+.all-posts-container {
+    display: table-row;
+    width: 100%;
+}
+
+.profile-container {
+    display: table-cell;
+    width: 600px;
+}
+
+.following-posts-container {
+    display: table-cell;
 }
