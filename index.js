@@ -203,7 +203,7 @@ function makePostCard(postObj, parentObj) {
         likeBtn.innerText = "Like"
         // add like functionality later 
     let likes = document.createElement("p")
-        likes.innerText = "n/a" 
+        likes.innerText = postObj['likes_count']  
         // change serializers so likes come attached to each post 
         likesDiv.appendChild(likeBtn) 
         likesDiv.appendChild(likes)  
