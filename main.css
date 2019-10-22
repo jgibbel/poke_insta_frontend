@@ -1,3 +1,7 @@
+html body {
+    background-color: crimson;
+}
+
 .form-container {
     padding: 1rem;
     width: stretch;
@@ -6,16 +10,31 @@
     /* background: #515DA2; */
 }
 
+.container-fluid {
+    background-color: crimson;
+}
+/* 
 .all-posts-container {
     display: table-row;
     width: 100%;
 }
 
 .profile-container {
-    display: table-cell;
-    width: 600px;
+    border-style: solid;
+    border-color: black;
+    background-color: white;
 }
 
 .following-posts-container {
-    display: table-cell;
+    border-style: solid;
+    border-color: black;
+    background-color: white;
+}
+*/
+
+.profile-card {
+    /* border-style: solid;
+    border-color: black; */
+    background-color: crimson;
+    border: 0px;
 }

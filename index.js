@@ -48,6 +48,9 @@ return fetch(url)
 
 function createProfile(obj){
     let profileCard = document.createElement('div')
+        profileCard.className = 'card'
+        profileCard.style.width = '18rem'
+
         let profileName = document.createElement('h3')
             profileName.innerText = `${obj.species}`
             profileName.className = 'pokemon-name'
@@ -61,10 +64,11 @@ function createProfile(obj){
             followerCount.prepend(countSpan)
 
         let profilePic = document.createElement('img')
+            profilePic.className = 'card-img-top'
             profilePic.src = `${obj.image}`
             profilePic.alt = `${obj.species}-pic`
-            profilePic.height = '100'
-            profilePic.width = '100'
+            // profilePic.height = '100'
+            // profilePic.width = '100'
 
         let formContainer = document.createElement('div')
             formContainer.className = 'form-container'
@@ -212,7 +216,8 @@ function createPosts(obj){
 
 function makePostCard(postObj, parentObj) {
     let postCard = document.createElement('div')
-        postCard.className = "post-card"
+        postCard.className = "post-card card"
+        postCard.style.width = '18rem'
 
         let proPicDiv = document.createElement('div')
             proPicDiv.className = "profile-link"
@@ -233,17 +238,19 @@ function makePostCard(postObj, parentObj) {
             mainImageDiv.className = "post-image"
 
             let pic = document.createElement("img") 
+                pic.className = 'card-img-top'
                 pic.src = postObj.image 
                 pic.alt = "Image File" 
-                pic.height  = 160 
-                pic.width = 135
+                // pic.height  = 160 
+                // pic.width = 135
 
         mainImageDiv.appendChild(pic) 
 
         let captionDiv = document.createElement("div")
-            captionDiv.className = "post-caption"
+            captionDiv.className = "post-caption card-body"
 
             let caption = document.createElement("p")
+                caption.className = 'card-text'
                 caption.innerText = postObj.caption 
 
         captionDiv.appendChild(caption)
@@ -252,6 +259,7 @@ function makePostCard(postObj, parentObj) {
             likesDiv.className = "post-likes" 
 
             let likeBtn = document.createElement("button") 
+                likeBtn.className = 'btn btn-primary'
                 likeBtn.innerText = "Like"
                 
                 let likes = document.createElement("p")
