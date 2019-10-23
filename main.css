@@ -17,7 +17,7 @@ html body {
     width: stretch;
     height: auto;
     display: none;
-    background: black;
+    background: grey;
 }
 
 .container-fluid {
@@ -27,8 +27,6 @@ html body {
 .my-posts{
     display: flex;
     flex-direction: column;
-    /* text-align: center; */
-    /* justify-content: space-between; */
 }
 
 .card{
@@ -68,10 +66,6 @@ html body {
     border-style: double double double double;
 }
 
-/* .likes-text{
-    margin: auto;
-} */
-
 .card{
     border-style: solid;
 }
@@ -88,28 +82,7 @@ html body {
     background: #B0A8A8;
 }
 
-/* 
-.all-posts-container {
-    display: table-row;
-    width: 100%;
-}
-
-.profile-container {
-    border-style: solid;
-    border-color: black;
-    background-color: white;
-}
-
-.following-posts-container {
-    border-style: solid;
-    border-color: black;
-    background-color: white;
-}
-*/
-
 .profile-card {
-    /* border-style: solid;
-    border-color: black; */
     background-color: transparent;
     border: 0px;
 }
