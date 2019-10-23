@@ -119,5 +119,7 @@ html body {
 }
 
 .profile-label{
-    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
