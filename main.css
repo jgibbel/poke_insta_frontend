@@ -17,7 +17,7 @@ html body {
     width: stretch;
     height: auto;
     display: none;
-    background: grey;
+    background: #2F4FA5;
 }
 
 .container-fluid {
@@ -99,4 +99,8 @@ html body {
 
 .profile-link{
     background: #d9d9d9;
+}
+
+.btn-primary{
+    border-color: #2F4FA5;
 }

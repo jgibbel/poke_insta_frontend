@@ -123,7 +123,7 @@ function createProfile(obj){
         let toggleForm = document.createElement('button')
             toggleForm.id = 'toggle-form'
             toggleForm.className = 'btn btn-primary'
-            toggleForm.style = 'text-align: center; background-color: blue;'
+            toggleForm.style = 'text-align: center; background-color: #2F4FA5;'
             toggleForm.innerText = '+ Post'
             toggleForm.addEventListener('click', evt => {
                 formDisplay(toggleForm)
