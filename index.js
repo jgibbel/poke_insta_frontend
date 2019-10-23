@@ -20,6 +20,12 @@ get("http://localhost:3000/pokemons")
     })
 })
 
+get(`http://localhost:3000/pokemons/1`)
+    .then(respJSON => {
+        createProfile(respJSON)
+        createFollowingDropdown(respJSON)
+    })
+
 selects.addEventListener('change', evt => {
     evt.preventDefault()
     let selected = evt.target.value
