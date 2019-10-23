@@ -1,5 +1,8 @@
 html body {
     background-color: crimson;
+    background-image: url("https://archive-media-0.nyafuu.org/vp/image/1419/38/1419385291955.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .form-container {
@@ -13,6 +16,41 @@ html body {
 .container-fluid {
     background-color: crimson;
 }
+
+.my-posts{
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    /* justify-content: space-between; */
+}
+
+.post-card{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.selected-posts-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.post-caption{
+    border-style: double double double double;
+}
+
+.likes-text{
+    margin: auto;
+}
+
+.card{
+    border-style: solid;
+}
+
+/* .like-btn{
+    margin-left: 50px;
+} */
+
 /* 
 .all-posts-container {
     display: table-row;
@@ -35,6 +73,6 @@ html body {
 .profile-card {
     /* border-style: solid;
     border-color: black; */
-    background-color: crimson;
+    background-color: transparent;
     border: 0px;
 }

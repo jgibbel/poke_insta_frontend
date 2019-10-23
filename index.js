@@ -110,7 +110,8 @@ function createProfile(obj){
         formContainer.append(createPostForm)
 
         let toggleForm = document.createElement('p')
-            // toggleForm.style = 'text-align: center'
+            toggleForm.className = 'btn btn-primary'
+            toggleForm.style = 'text-align: center; background-color: blue;'
             toggleForm.innerText = '+ Post'
             toggleForm.addEventListener('click', evt => {
                 formDisplay(toggleForm)
@@ -256,13 +257,14 @@ function makePostCard(postObj, parentObj) {
         captionDiv.appendChild(caption)
         
         let likesDiv = document.createElement('div')
-            likesDiv.className = "post-likes" 
+            likesDiv.className = "post-likes d-flex justify-content-center" 
 
             let likeBtn = document.createElement("button") 
-                likeBtn.className = 'btn btn-primary'
+                likeBtn.className = 'btn btn-primary like-btn'
                 likeBtn.innerText = "Like"
                 
                 let likes = document.createElement("p")
+                    likes.className = 'align-text-bottom likes-text'
                     likes.innerHTML = ' likes'
 
                     let likes_count = document.createElement('span')
