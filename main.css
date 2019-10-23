@@ -1,8 +1,15 @@
 html body {
-    background-color: crimson;
-    background-image: url("https://archive-media-0.nyafuu.org/vp/image/1419/38/1419385291955.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color: #2F4FA5;
+    background-image: url("https://img.wallpapersafari.com/desktop/1680/1050/68/55/sG9KVr.png");
+}
+
+.form-title{
+    background-color: lightblue;
+}
+
+.create-post-form{
+    border-style: solid;
+    background: white;
 }
 
 .form-container {
@@ -10,11 +17,11 @@ html body {
     width: stretch;
     height: auto;
     display: none;
-    /* background: #515DA2; */
+    background: black;
 }
 
 .container-fluid {
-    background-color: crimson;
+    background-color: #2F4FA5;
 }
 
 .my-posts{
@@ -24,9 +31,31 @@ html body {
     /* justify-content: space-between; */
 }
 
+.card{
+    border: 3px solid;
+}
+
+.following-dropdown{
+    margin-left: 220px;
+}
+
+.following-dropdown-select{
+    margin: auto;
+}
+
 .post-card{
     margin: auto;
     margin-bottom: 20px;
+    border-style: solid;
+}
+
+.post-likes{
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.delete-post{
+    background: grey;
 }
 
 .selected-posts-container{
@@ -39,17 +68,25 @@ html body {
     border-style: double double double double;
 }
 
-.likes-text{
+/* .likes-text{
     margin: auto;
-}
+} */
 
 .card{
     border-style: solid;
 }
 
-/* .like-btn{
-    margin-left: 50px;
-} */
+.like-btn{
+    width: 20rem;
+}
+
+.pokemon-profile{
+    background: white;
+}
+
+.pokemon-name{
+    background: #B0A8A8;
+}
 
 /* 
 .all-posts-container {
@@ -75,4 +112,12 @@ html body {
     border-color: black; */
     background-color: transparent;
     border: 0px;
+}
+
+.profile-container{
+    border-right-style: solid;
+}
+
+.profile-label{
+    text-align: right;
 }

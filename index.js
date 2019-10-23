@@ -48,8 +48,8 @@ return fetch(url)
 
 function createProfile(obj){
     let profileCard = document.createElement('div')
-        profileCard.className = 'card'
-        profileCard.style.width = '18rem'
+        profileCard.className = 'card pokemon-profile'
+        profileCard.style.width = '22rem'
 
         let profileName = document.createElement('h3')
             profileName.innerText = `${obj.species}`
@@ -67,8 +67,6 @@ function createProfile(obj){
             profilePic.className = 'card-img-top'
             profilePic.src = `${obj.image}`
             profilePic.alt = `${obj.species}-pic`
-            // profilePic.height = '100'
-            // profilePic.width = '100'
 
         let formContainer = document.createElement('div')
             formContainer.className = 'form-container'
@@ -77,7 +75,12 @@ function createProfile(obj){
                 createPostForm.className = 'create-post-form'
 
                 let formHeader = document.createElement('h3')
+                    formHeader.className = 'form-title'
                     formHeader.innerText = 'New Post'
+
+                let captionLabel = document.createElement('label')
+                    captionLabel.className = 'label'
+                    captionLabel.innerText = 'Add Caption'
 
                 let captionInput = document.createElement('input')
                     captionInput.name = 'caption'
@@ -86,7 +89,9 @@ function createProfile(obj){
                     captionInput.placeholder = "Caption..."
                     captionInput.className = "input-text"
                 
-                let br = document.createElement('br')
+                let imageLabel = document.createElement('label')
+                    imageLabel.className = 'label'
+                    imageLabel.innerText = 'Add Image Url'
 
                 let imageInput = document.createElement('input')
                     imageInput.name = 'image'
@@ -101,7 +106,7 @@ function createProfile(obj){
                     submitForm.value = 'Submit Post'
                     submitForm.className = 'submit'
 
-            createPostForm.append(formHeader, captionInput, br, imageInput, br, submitForm)
+            createPostForm.append(formHeader, captionLabel, captionInput, imageLabel, imageInput, submitForm)
             createPostForm.addEventListener('submit', evt => {
                 evt.preventDefault()
                 submitNewPost(evt, obj)
@@ -109,7 +114,8 @@ function createProfile(obj){
 
         formContainer.append(createPostForm)
 
-        let toggleForm = document.createElement('p')
+        let toggleForm = document.createElement('button')
+            toggleForm.id = 'toggle-form'
             toggleForm.className = 'btn btn-primary'
             toggleForm.style = 'text-align: center; background-color: blue;'
             toggleForm.innerText = '+ Post'
@@ -124,7 +130,7 @@ function createProfile(obj){
             let postCard = makePostCard(post, obj)
 
                 let deleteBtn = document.createElement('button')
-                    deleteBtn.className = 'delete-post'
+                    deleteBtn.className = 'delete-post btn'
                     deleteBtn.innerText = 'Delete Post'
                     deleteBtn.addEventListener('click', evt => {  
                         postCard.remove()
@@ -170,6 +176,14 @@ function submitNewPost(evt, obj){
     .then(respJSON => {
         console.log(respJSON)
         let newPost = makePostCard(respJSON, obj)
+        let deleteBtn = document.createElement('button')
+            deleteBtn.className = 'delete-post btn'
+            deleteBtn.innerText = 'Delete Post'
+            deleteBtn.addEventListener('click', evt => {  
+                newPost.remove()
+                deletePost(post)
+            })
+            newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
     })
 }
@@ -178,11 +192,15 @@ function formDisplay(toggleForm){
     displayForm = !displayForm
 
     let formContainer = document.querySelector('.form-container')
+    let toggleBtn = document.querySelector('#toggle-form')
 
     if (displayForm){
         formContainer.style.display = 'block'
+        toggleBtn.innerText = '- Post'
+
     } else {
         formContainer.style.display = 'none'
+        toggleBtn.innerText = '+ Post'
     }
 }
 
@@ -217,8 +235,8 @@ function createPosts(obj){
 
 function makePostCard(postObj, parentObj) {
     let postCard = document.createElement('div')
-        postCard.className = "post-card card"
-        postCard.style.width = '18rem'
+        postCard.className = "card post-card"
+        postCard.style.width = '20rem'
 
         let proPicDiv = document.createElement('div')
             proPicDiv.className = "profile-link"
@@ -242,8 +260,6 @@ function makePostCard(postObj, parentObj) {
                 pic.className = 'card-img-top'
                 pic.src = postObj.image 
                 pic.alt = "Image File" 
-                // pic.height  = 160 
-                // pic.width = 135
 
         mainImageDiv.appendChild(pic) 
 
@@ -261,22 +277,18 @@ function makePostCard(postObj, parentObj) {
 
             let likeBtn = document.createElement("button") 
                 likeBtn.className = 'btn btn-primary like-btn'
-                likeBtn.innerText = "Like"
+                likeBtn.innerText = " likes"
                 
-                let likes = document.createElement("p")
-                    likes.className = 'align-text-bottom likes-text'
-                    likes.innerHTML = ' likes'
-
                     let likes_count = document.createElement('span')
                         likes_count.innerText = postObj.likes_count 
-                        likes.prepend(likes_count)
+                        likeBtn.prepend(likes_count)
 
-                    likeBtn.addEventListener('click', evt => {
-                        likes_count.innerText = parseInt(likes_count.innerText) +  1
-                        addLike(postObj)
-                    })
+                likeBtn.addEventListener('click', evt => {
+                    likes_count.innerText = parseInt(likes_count.innerText) +  1
+                    addLike(postObj)
+                })
 
-        likesDiv.append(likeBtn, likes)  
+        likesDiv.append(likeBtn)  
 
     postCard.append(proPicDiv, mainImageDiv, captionDiv, likesDiv)
 
