@@ -89,9 +89,19 @@ function createProfile(obj){
                     let followingCountSpan = document.createElement('span')
                         followingCountSpan.innerText = `${obj.follows.length}`
                     followingCount.prepend(followingCountSpan)
+
                 countDiv.append(followerCount, followingCount)
             
             profileHeader.append(profileName, countDiv)
+        
+        let postsCount = document.createElement('h5')
+            postsCount.className = 'posts-count'
+            postsCount.innerText = ' posts'
+
+            let postSpan = document.createElement('span')
+                postSpan.innerText = obj.posts.length
+
+            postsCount.prepend(postSpan)
 
         let profilePic = document.createElement('img')
             profilePic.className = 'card-img-top'
@@ -191,7 +201,7 @@ function createProfile(obj){
         })
 
     // Appends everything to DOM
-    profileCard.append(profileHeader, profilePic, formContainer, toggleForm, profilePostsContainer)
+    profileCard.append(profileHeader, postsCount, profilePic, formContainer, toggleForm, profilePostsContainer)
     pokemonProfCard.prepend(profileCard)
 }
 

@@ -2,6 +2,7 @@ html body {
     background-color: #2F4FA5;
     background-image: url("https://img.wallpapersafari.com/desktop/1680/1050/68/55/sG9KVr.png");
     padding: 65px;
+    z-index: -1;
 }
 
 .btn-primary{
@@ -24,7 +25,12 @@ html body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #E2E1E1;
+    background-color: #B0A8A8;
+}
+
+.posts-count{
+    background: #E9DDDD;
+    text-align: center;
 }
 
 .form-title{
@@ -112,12 +118,12 @@ html body {
 }
 
 .pokemon-name{
-    background-color: #B0A8A8;
+    background-color: grey;
     text-align: center;
 }
 
 .profile-header{
-    background-color: #B0A8A8;
+    background-color: grey;
 }
 
 .profile-card {
