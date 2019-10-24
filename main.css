@@ -20,6 +20,12 @@ html body {
     border-style: solid;
 }
 
+.count{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .form-title{
     background-color: lightblue;
 }

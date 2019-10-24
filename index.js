@@ -68,21 +68,25 @@ function createProfile(obj){
             profileName.innerText = `${obj.species}`
             profileName.className = 'pokemon-name'
 
-        let followerCount = document.createElement('h4')
-            followerCount.className = 'follower-count'
-            followerCount.innerText = ' followers'
+        let countDiv = document.createElement('div')
+            countDiv.className = 'count'
 
-            let countSpan = document.createElement('span')
-                countSpan.innerText = `${obj.followers.length}`
-            followerCount.prepend(countSpan)
+            let followerCount = document.createElement('h5')
+                followerCount.className = 'follower-count'
+                followerCount.innerText = ' followers'
 
-        let followingCount = document.createElement('h5')
-            followingCount.className = 'following-count'
-            followingCount.innerText = ' following'
+                let countSpan = document.createElement('span')
+                    countSpan.innerText = `${obj.followers.length}`
+                followerCount.prepend(countSpan)
 
-            let followingCountSpan = document.createElement('span')
-                followingCountSpan.innerText = `${obj.follows.length}`
-            followingCount.prepend(followingCountSpan)
+            let followingCount = document.createElement('h5')
+                followingCount.className = 'following-count'
+                followingCount.innerText = ' following'
+
+                let followingCountSpan = document.createElement('span')
+                    followingCountSpan.innerText = `${obj.follows.length}`
+                followingCount.prepend(followingCountSpan)
+            countDiv.append(followerCount, followingCount)
 
         let profilePic = document.createElement('img')
             profilePic.className = 'card-img-top'
@@ -182,7 +186,7 @@ function createProfile(obj){
         })
 
     // Appends everything to DOM
-    profileCard.append(profileName, followerCount, followingCount, profilePic, formContainer, toggleForm, profilePostsContainer)
+    profileCard.append(profileName, countDiv, profilePic, formContainer, toggleForm, profilePostsContainer)
     pokemonProfCard.prepend(profileCard)
 }
 
