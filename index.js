@@ -7,8 +7,10 @@ let followingSelection = document.querySelector('.following-dropdown-select')
 let followingDropdown = followingPosts.querySelector('.following-dropdown')
 let chosenFollow = followingPosts.querySelector('.selected-posts-container')
 
+// To toggle "Add Post" form on button click
 let displayForm = false
 
+// Makes dropdown of all pokemon at top of page
 get("http://localhost:3000/pokemons")
 .then(respJSON => {
     respJSON.forEach(opt => {
@@ -20,6 +22,7 @@ get("http://localhost:3000/pokemons")
     })
 })
 
+// Changes the profile being viewed based on which pokemon was selected from dropdown
 selects.addEventListener('change', evt => {
     evt.preventDefault()
     let selected = evt.target.value
@@ -35,18 +38,22 @@ selects.addEventListener('change', evt => {
     })
 })
 
+// Helper function used throughout to remove children
 function removeChildren(parentNode) {  
     while (parentNode.firstChild) { 
       parentNode.removeChild(parentNode.firstChild)  
     }
   }
 
+// Helper function to replace fetch and first .then, used for each fetch
 function get(url){
 return fetch(url)
 .then(resp => resp.json())
 }
 
+// Major function to build the profile card, new post form, and profile posts 
 function createProfile(obj){
+    // Makes profile card
     let profileCard = document.createElement('div')
         profileCard.className = 'card'
         profileCard.style.width = '18rem'
@@ -70,6 +77,7 @@ function createProfile(obj){
             // profilePic.height = '100'
             // profilePic.width = '100'
 
+    // Makes new post form 
         let formContainer = document.createElement('div')
             formContainer.className = 'form-container'
 
@@ -108,6 +116,8 @@ function createProfile(obj){
             })
 
         formContainer.append(createPostForm)
+    
+    // Creates button to toggle form visible or not
 
         let toggleForm = document.createElement('p')
             // toggleForm.style = 'text-align: center'
@@ -116,9 +126,11 @@ function createProfile(obj){
                 formDisplay(toggleForm)
             })
 
+    // 
         let profilePostsContainer = document.createElement('div')
             profilePostsContainer.className = 'pokemon-posts-container'
 
+    // Creates each post using makePostCard and adds deletes functionality (as only one's own posts can be deleted)
         obj.posts.forEach(post => {
             let postCard = makePostCard(post, obj)
 
@@ -134,10 +146,12 @@ function createProfile(obj){
             myPostsDiv.append(postCard)
         })
 
+    // Appends everything to DOM
     profileCard.append(profileName, followerCount, profilePic, formContainer, toggleForm, profilePostsContainer)
     pokemonProfCard.prepend(profileCard)
 }
 
+// Delete button exists only for the selected pokemon's own posts and not others
 function deletePost(post){
     // console.log(post)
     fetch(`http://localhost:3000/posts/${post.id}`, {
@@ -149,6 +163,7 @@ function deletePost(post){
     })
 }
 
+// Function to create post when submitting new post form 
 function submitNewPost(evt, obj){
     console.log(obj)
     let newCaption = evt.target.caption.value
@@ -173,6 +188,7 @@ function submitNewPost(evt, obj){
     })
 }
 
+// New post form show/hide controls
 function formDisplay(toggleForm){
     displayForm = !displayForm
 
@@ -185,6 +201,7 @@ function formDisplay(toggleForm){
     }
 }
 
+// Creates second dropdown of pokemon based on who the main pokemon being viewed follows
 function createFollowingDropdown(obj){
         let i = 0
         followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
@@ -205,6 +222,7 @@ function createFollowingDropdown(obj){
     followingDropdown.append(followingSelection)
 }
 
+// Loads posts for the pokemon selected in the Following Dropdown
 function createPosts(obj){
     removeChildren(chosenFollow)
     obj.posts.forEach(function(post){
@@ -213,12 +231,15 @@ function createPosts(obj){
     })
 }
 
-
+// Helper function to create each post, used both for pokemon profile and viewing following's posts
 function makePostCard(postObj, parentObj) {
+
+    // Parent element, the post-card
     let postCard = document.createElement('div')
         postCard.className = "post-card card"
         postCard.style.width = '18rem'
 
+        // First inner div
         let proPicDiv = document.createElement('div')
             proPicDiv.className = "profile-link"
 
@@ -234,6 +255,7 @@ function makePostCard(postObj, parentObj) {
 
         proPicDiv.append(propic, profileN) 
         
+        // Second inner div
         let mainImageDiv = document.createElement('div')
             mainImageDiv.className = "post-image"
 
@@ -246,6 +268,7 @@ function makePostCard(postObj, parentObj) {
 
         mainImageDiv.appendChild(pic) 
 
+        // Third innner div
         let captionDiv = document.createElement("div")
             captionDiv.className = "post-caption card-body"
 
@@ -255,6 +278,7 @@ function makePostCard(postObj, parentObj) {
 
         captionDiv.appendChild(caption)
         
+        // Fourth inner div 
         let likesDiv = document.createElement('div')
             likesDiv.className = "post-likes" 
 
@@ -275,12 +299,14 @@ function makePostCard(postObj, parentObj) {
                     })
 
         likesDiv.append(likeBtn, likes)  
-
+    
+    // Append all to main post-card div 
     postCard.append(proPicDiv, mainImageDiv, captionDiv, likesDiv)
 
     return postCard
 }
 
+//Function to like any post, no limit for multiple likes or liking own posts 
 function addLike(obj){
     let pokemon_id = obj.pokemon_id
     let post_id = obj.id
