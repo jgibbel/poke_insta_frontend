@@ -87,7 +87,7 @@ function createProfile(obj){
                     followingCount.innerText = ' following'
 
                     let followingCountSpan = document.createElement('span')
-                        followingCountSpan.innerText = `${obj.sorted_follows.length}`
+                        followingCountSpan.innerText = `${obj.follows.length}`
                     followingCount.prepend(followingCountSpan)
 
                 countDiv.append(followerCount, followingCount)
@@ -281,7 +281,7 @@ function formDisplay(toggleForm){
 function createFollowingDropdown(obj){
         let i = 0
         followingSelection.innerHTML = `<option value="" disabled selected>Select a Pokemon to View</option>`
-        obj.sorted_follows.forEach(following => {
+        obj.follows.forEach(following => {
             let followingOption = document.createElement('option')
                 followingOption.className = 'selected'
                 followingOption.value = i
@@ -290,10 +290,10 @@ function createFollowingDropdown(obj){
             i += 1
         })
 
-        createPosts(obj.sorted_follows[0])
+        createPosts(obj.follows[0])
         followingSelection.addEventListener('change', evt => {
             let x = evt.target.value
-            createPosts(obj.sorted_follows[x])
+            createPosts(obj.follows[x])
         })
 }
 
