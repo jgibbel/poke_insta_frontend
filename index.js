@@ -212,7 +212,7 @@ function submitNewPost(evt, obj){
             console.log(respJSON)
            return alert(respJSON.errors[0])
         }
-        
+
         let newPost = makePostCard(respJSON, obj)
         let deleteBtn = document.createElement('button')
             deleteBtn.className = 'delete-post btn'
@@ -236,13 +236,13 @@ function formDisplay(toggleForm){
     if (displayForm){
         formContainer.style.display = 'block'
         toggleBtn.style["background-color"] = '#9A2D2D'
-        toggleBtn.style["border-color"] = 'crimson'
+        toggleBtn.style["border-color"] = '#5A0909'
         toggleBtn.innerText = '- Post'
 
     } else {
         formContainer.style.display = 'none'
         toggleBtn.style["background-color"] = '#2F4FA5'
-        toggleBtn.style["border-color"] = '#007bff'
+        toggleBtn.style["border-color"] = '#11095A'
         toggleBtn.innerText = '+ Post'
     }
 }
