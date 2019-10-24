@@ -101,6 +101,16 @@ html body {
     background: #d9d9d9;
 }
 
-.btn-primary{
-    border-color: #2F4FA5;
+.form-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.create-post-form{
+    background: black;
+}
+
+.input-text{
+    margin-top: 4px;
 }

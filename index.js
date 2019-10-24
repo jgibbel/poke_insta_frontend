@@ -80,39 +80,53 @@ function createProfile(obj){
             let createPostForm = document.createElement('form')
                 createPostForm.className = 'create-post-form'
 
-                let formHeader = document.createElement('h3')
+                let formHeader = document.createElement('label')
                     formHeader.className = 'form-title'
-                    formHeader.innerText = 'New Post'
 
-                let captionLabel = document.createElement('label')
-                    captionLabel.className = 'label'
-                    captionLabel.innerText = 'Add Caption'
+                    let strong = document.createElement('strong')
+                        strong.innerText = 'New Post'
 
-                let captionInput = document.createElement('input')
-                    captionInput.name = 'caption'
-                    captionInput.type = 'text'
-                    captionInput.value = ""
-                    captionInput.placeholder = "Caption..."
-                    captionInput.className = "input-text"
-                
-                let imageLabel = document.createElement('label')
-                    imageLabel.className = 'label'
-                    imageLabel.innerText = 'Add Image Url'
+                    formHeader.append(strong)
 
-                let imageInput = document.createElement('input')
-                    imageInput.name = 'image'
-                    imageInput.type = 'text'
-                    imageInput.value = ""
-                    imageInput.placeholder = "Image URL..."
-                    imageInput.className = 'input-text'
+                let formDiv = document.createElement('div')
+                    formDiv.className = 'form-row'
 
-                let submitForm = document.createElement('input')
-                    submitForm.type = 'submit'
-                    submitForm.name = 'submit'
-                    submitForm.value = 'Submit Post'
-                    submitForm.className = 'submit'
+                    let captionDiv = document.createElement('div')
+                        captionDiv.className = 'col'
 
-            createPostForm.append(formHeader, captionLabel, captionInput, imageLabel, imageInput, submitForm)
+                        let captionInput = document.createElement('input')
+                            captionInput.name = 'caption'
+                            captionInput.type = 'text'
+                            captionInput.value = ""
+                            captionInput.placeholder = "Caption..."
+                            captionInput.className = "input-text form-control"
+                        
+                        captionDiv.append(captionInput)
+
+                    let imageDiv = document.createElement('div')
+                        imageDiv.className = 'col'
+                    
+                        let imageInput = document.createElement('input')
+                            imageInput.name = 'image'
+                            imageInput.type = 'text'
+                            imageInput.value = ""
+                            imageInput.placeholder = "Image URL..."
+                            imageInput.className = 'input-text form-control'
+
+                        imageDiv.append(imageInput)
+
+                    let submitDiv = document.createElement('div')
+                        submitDiv.className = 'col'
+
+                        let submitForm = document.createElement('button')
+                            submitForm.type = 'submit'
+                            submitForm.name = 'submit'
+                            submitForm.innerText = 'Submit Post'
+                            submitForm.className = 'submit btn btn-primary'
+
+                        submitDiv.append(submitForm)
+
+            createPostForm.append(formHeader, captionDiv, imageDiv, submitDiv)
             createPostForm.addEventListener('submit', evt => {
                 evt.preventDefault()
                 submitNewPost(evt, obj)
@@ -202,10 +216,12 @@ function formDisplay(toggleForm){
 
     if (displayForm){
         formContainer.style.display = 'block'
+        toggleBtn.style["background-color"] = '#1B6230'
         toggleBtn.innerText = '- Post'
 
     } else {
         formContainer.style.display = 'none'
+        toggleBtn.style["background-color"] = '#2F4FA5'
         toggleBtn.innerText = '+ Post'
     }
 }
