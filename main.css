@@ -1,6 +1,7 @@
 html body {
     background-color: #2F4FA5;
     background-image: url("https://img.wallpapersafari.com/desktop/1680/1050/68/55/sG9KVr.png");
+    padding: 65px;
 }
 
 .container-fluid {
@@ -56,11 +57,11 @@ html body {
 }
 
 .following-dropdown{
-    margin-left: 220px;
+    margin: auto;
 }
 
 .following-dropdown-select{
-    margin: auto;
+    margin-left: 420px;
 }
 
 .post-card{
