@@ -290,6 +290,7 @@ function createFollowingDropdown(obj){
             i += 1
         })
 
+        createPosts(obj.follows[0])
         followingSelection.addEventListener('change', evt => {
             let x = evt.target.value
             createPosts(obj.follows[x])
