@@ -192,7 +192,6 @@ function deletePost(post){
 
 // Function to create post when submitting new post form 
 function submitNewPost(evt, obj){
-    console.log(obj)
     let newCaption = evt.target.caption.value
     let newImage = evt.target.image.value
     fetch('http://localhost:3000/posts', {
@@ -221,7 +220,7 @@ function submitNewPost(evt, obj){
             newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
     } else {
-        alert(respJSON.errors[0])
+        alert(respJSON.errors)
     }
     })
 }
