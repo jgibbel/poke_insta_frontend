@@ -99,6 +99,7 @@ function createProfile(obj){
             postsCount.innerText = ' posts'
 
             let postSpan = document.createElement('span')
+                postSpan.className = 'post-count-span'
                 postSpan.innerText = obj.posts.length
 
             postsCount.prepend(postSpan)
@@ -214,6 +215,8 @@ function deletePost(post){
     .then(resp => resp.json())
     .then(respJSON => {
         console.log(respJSON)
+        let postCount = document.querySelector('.post-count-span')
+        postCount.innerText = parseInt(postCount.innerText) - 1
     })
 }
 
@@ -236,20 +239,21 @@ function submitNewPost(evt, obj){
     .then(resp => resp.json())
     .then(respJSON => {
         if (respJSON.errors) {
-            console.log(respJSON)
            return alert(respJSON.errors[0])
         }
-
+        let postCount = document.querySelector('.post-count-span')
         let newPost = makePostCard(respJSON, obj)
         let deleteBtn = document.createElement('button')
             deleteBtn.className = 'delete-post btn'
             deleteBtn.innerText = 'Delete Post'
             deleteBtn.addEventListener('click', evt => {  
+                deletePost(newPost)
                 newPost.remove()
-                deletePost(post)
             })
             newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
+
+        postCount.innerText = parseInt(postCount.innerText) + 1
     })
 }
 
