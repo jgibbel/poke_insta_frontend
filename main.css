@@ -24,6 +24,7 @@ html body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    background-color: #E2E1E1;
 }
 
 .form-title{
@@ -111,7 +112,12 @@ html body {
 }
 
 .pokemon-name{
-    background: #B0A8A8;
+    background-color: #B0A8A8;
+    text-align: center;
+}
+
+.profile-header{
+    background-color: #B0A8A8;
 }
 
 .profile-card {
