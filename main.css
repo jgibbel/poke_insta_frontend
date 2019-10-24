@@ -1,5 +1,24 @@
 html body {
-    background-color: crimson;
+    background-color: #2F4FA5;
+    background-image: url("https://img.wallpapersafari.com/desktop/1680/1050/68/55/sG9KVr.png");
+}
+
+.container-fluid {
+    background-color: #2F4FA5;
+}
+
+.card{
+    border: 3px solid;
+    border-style: solid;
+}
+
+.form-title{
+    background-color: lightblue;
+}
+
+.create-post-form{
+    border-style: solid;
+    background: white;
 }
 
 .form-container {
@@ -7,34 +26,88 @@ html body {
     width: stretch;
     height: auto;
     display: none;
-    /* background: #515DA2; */
+    background: #2F4FA5;
 }
 
-.container-fluid {
-    background-color: crimson;
-}
-/* 
-.all-posts-container {
-    display: table-row;
-    width: 100%;
+.form-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.profile-container {
+.create-post-form{
+    background: black;
+}
+
+.input-text{
+    margin-top: 4px;
+}
+
+.following-dropdown{
+    margin-left: 220px;
+}
+
+.following-dropdown-select{
+    margin: auto;
+}
+
+.post-card{
+    margin: auto;
+    margin-bottom: 20px;
     border-style: solid;
-    border-color: black;
-    background-color: white;
 }
 
-.following-posts-container {
-    border-style: solid;
-    border-color: black;
-    background-color: white;
+.post-likes{
+    background-color: #007bff;
+    border-color: #007bff;
 }
-*/
+
+.delete-post{
+    background: grey;
+}
+
+.selected-posts-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.my-posts{
+    display: flex;
+    flex-direction: column;
+}
+
+.post-caption{
+    border-style: double double double double;
+}
+
+.like-btn{
+    width: 20rem;
+}
+
+.pokemon-profile{
+    background: white;
+}
+
+.pokemon-name{
+    background: #B0A8A8;
+}
 
 .profile-card {
-    /* border-style: solid;
-    border-color: black; */
-    background-color: crimson;
+    background-color: transparent;
     border: 0px;
+}
+
+.profile-container{
+    border-right-style: solid;
+}
+
+.profile-label{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.profile-link{
+    background: #d9d9d9;
 }

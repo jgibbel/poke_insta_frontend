@@ -23,6 +23,12 @@ get("http://localhost:3000/pokemons")
 })
 
 // Changes the profile being viewed based on which pokemon was selected from dropdown
+get(`http://localhost:3000/pokemons/1`)
+    .then(respJSON => {
+        createProfile(respJSON)
+        createFollowingDropdown(respJSON)
+    })
+
 selects.addEventListener('change', evt => {
     evt.preventDefault()
     let selected = evt.target.value
@@ -55,8 +61,8 @@ return fetch(url)
 function createProfile(obj){
     // Makes profile card
     let profileCard = document.createElement('div')
-        profileCard.className = 'card'
-        profileCard.style.width = '18rem'
+        profileCard.className = 'card pokemon-profile'
+        profileCard.style.width = '22rem'
 
         let profileName = document.createElement('h3')
             profileName.innerText = `${obj.species}`
@@ -74,8 +80,6 @@ function createProfile(obj){
             profilePic.className = 'card-img-top'
             profilePic.src = `${obj.image}`
             profilePic.alt = `${obj.species}-pic`
-            // profilePic.height = '100'
-            // profilePic.width = '100'
 
     // Makes new post form 
         let formContainer = document.createElement('div')
@@ -84,32 +88,53 @@ function createProfile(obj){
             let createPostForm = document.createElement('form')
                 createPostForm.className = 'create-post-form'
 
-                let formHeader = document.createElement('h3')
-                    formHeader.innerText = 'New Post'
+                let formHeader = document.createElement('label')
+                    formHeader.className = 'form-title'
 
-                let captionInput = document.createElement('input')
-                    captionInput.name = 'caption'
-                    captionInput.type = 'text'
-                    captionInput.value = ""
-                    captionInput.placeholder = "Caption..."
-                    captionInput.className = "input-text"
-                
-                let br = document.createElement('br')
+                    let strong = document.createElement('strong')
+                        strong.innerText = 'New Post'
 
-                let imageInput = document.createElement('input')
-                    imageInput.name = 'image'
-                    imageInput.type = 'text'
-                    imageInput.value = ""
-                    imageInput.placeholder = "Image URL..."
-                    imageInput.className = 'input-text'
+                    formHeader.append(strong)
 
-                let submitForm = document.createElement('input')
-                    submitForm.type = 'submit'
-                    submitForm.name = 'submit'
-                    submitForm.value = 'Submit Post'
-                    submitForm.className = 'submit'
+                let formDiv = document.createElement('div')
+                    formDiv.className = 'form-row'
 
-            createPostForm.append(formHeader, captionInput, br, imageInput, br, submitForm)
+                    let captionDiv = document.createElement('div')
+                        captionDiv.className = 'col'
+
+                        let captionInput = document.createElement('input')
+                            captionInput.name = 'caption'
+                            captionInput.type = 'text'
+                            captionInput.value = ""
+                            captionInput.placeholder = "Caption..."
+                            captionInput.className = "input-text form-control"
+                        
+                        captionDiv.append(captionInput)
+
+                    let imageDiv = document.createElement('div')
+                        imageDiv.className = 'col'
+                    
+                        let imageInput = document.createElement('input')
+                            imageInput.name = 'image'
+                            imageInput.type = 'text'
+                            imageInput.value = ""
+                            imageInput.placeholder = "Image URL..."
+                            imageInput.className = 'input-text form-control'
+
+                        imageDiv.append(imageInput)
+
+                    let submitDiv = document.createElement('div')
+                        submitDiv.className = 'col'
+
+                        let submitForm = document.createElement('button')
+                            submitForm.type = 'submit'
+                            submitForm.name = 'submit'
+                            submitForm.innerText = 'Submit Post'
+                            submitForm.className = 'submit btn btn-primary'
+
+                        submitDiv.append(submitForm)
+
+            createPostForm.append(formHeader, captionDiv, imageDiv, submitDiv)
             createPostForm.addEventListener('submit', evt => {
                 evt.preventDefault()
                 submitNewPost(evt, obj)
@@ -119,8 +144,10 @@ function createProfile(obj){
     
     // Creates button to toggle form visible or not
 
-        let toggleForm = document.createElement('p')
-            // toggleForm.style = 'text-align: center'
+        let toggleForm = document.createElement('button')
+            toggleForm.id = 'toggle-form'
+            toggleForm.className = 'btn btn-primary'
+            toggleForm.style = 'text-align: center; background-color: #2F4FA5;'
             toggleForm.innerText = '+ Post'
             toggleForm.addEventListener('click', evt => {
                 formDisplay(toggleForm)
@@ -135,7 +162,7 @@ function createProfile(obj){
             let postCard = makePostCard(post, obj)
 
                 let deleteBtn = document.createElement('button')
-                    deleteBtn.className = 'delete-post'
+                    deleteBtn.className = 'delete-post btn'
                     deleteBtn.innerText = 'Delete Post'
                     deleteBtn.addEventListener('click', evt => {  
                         postCard.remove()
@@ -184,6 +211,14 @@ function submitNewPost(evt, obj){
     .then(respJSON => {
         console.log(respJSON)
         let newPost = makePostCard(respJSON, obj)
+        let deleteBtn = document.createElement('button')
+            deleteBtn.className = 'delete-post btn'
+            deleteBtn.innerText = 'Delete Post'
+            deleteBtn.addEventListener('click', evt => {  
+                newPost.remove()
+                deletePost(post)
+            })
+            newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
     })
 }
@@ -193,11 +228,17 @@ function formDisplay(toggleForm){
     displayForm = !displayForm
 
     let formContainer = document.querySelector('.form-container')
+    let toggleBtn = document.querySelector('#toggle-form')
 
     if (displayForm){
         formContainer.style.display = 'block'
+        toggleBtn.style["background-color"] = '#1B6230'
+        toggleBtn.innerText = '- Post'
+
     } else {
         formContainer.style.display = 'none'
+        toggleBtn.style["background-color"] = '#2F4FA5'
+        toggleBtn.innerText = '+ Post'
     }
 }
 
@@ -236,8 +277,8 @@ function makePostCard(postObj, parentObj) {
 
     // Parent element, the post-card
     let postCard = document.createElement('div')
-        postCard.className = "post-card card"
-        postCard.style.width = '18rem'
+        postCard.className = "card post-card"
+        postCard.style.width = '20rem'
 
         // First inner div
         let proPicDiv = document.createElement('div')
@@ -263,8 +304,6 @@ function makePostCard(postObj, parentObj) {
                 pic.className = 'card-img-top'
                 pic.src = postObj.image 
                 pic.alt = "Image File" 
-                // pic.height  = 160 
-                // pic.width = 135
 
         mainImageDiv.appendChild(pic) 
 
@@ -280,27 +319,24 @@ function makePostCard(postObj, parentObj) {
         
         // Fourth inner div 
         let likesDiv = document.createElement('div')
-            likesDiv.className = "post-likes" 
+            likesDiv.className = "post-likes d-flex justify-content-center" 
 
             let likeBtn = document.createElement("button") 
-                likeBtn.className = 'btn btn-primary'
-                likeBtn.innerText = "Like"
+                likeBtn.className = 'btn btn-primary like-btn'
+                likeBtn.innerText = " likes"
                 
-                let likes = document.createElement("p")
-                    likes.innerHTML = ' likes'
-
                     let likes_count = document.createElement('span')
                         likes_count.innerText = postObj.likes_count 
-                        likes.prepend(likes_count)
+                        likeBtn.prepend(likes_count)
 
-                    likeBtn.addEventListener('click', evt => {
-                        likes_count.innerText = parseInt(likes_count.innerText) +  1
-                        addLike(postObj)
-                    })
-
-        likesDiv.append(likeBtn, likes)  
+                likeBtn.addEventListener('click', evt => {
+                    likes_count.innerText = parseInt(likes_count.innerText) +  1
+                    addLike(postObj)
+                })
     
     // Append all to main post-card div 
+        likesDiv.append(likeBtn)  
+
     postCard.append(proPicDiv, mainImageDiv, captionDiv, likesDiv)
 
     return postCard
