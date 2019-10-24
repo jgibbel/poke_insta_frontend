@@ -43,6 +43,11 @@ html body {
     margin-top: 4px;
 }
 
+.submit{
+    margin-top: 4px;
+    margin-bottom: 7px;
+}
+
 .following-dropdown{
     margin-left: 220px;
 }

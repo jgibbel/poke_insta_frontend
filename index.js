@@ -232,12 +232,14 @@ function formDisplay(toggleForm){
 
     if (displayForm){
         formContainer.style.display = 'block'
-        toggleBtn.style["background-color"] = '#1B6230'
+        toggleBtn.style["background-color"] = '#9A2D2D'
+        toggleBtn.style["border-color"] = 'crimson'
         toggleBtn.innerText = '- Post'
 
     } else {
         formContainer.style.display = 'none'
         toggleBtn.style["background-color"] = '#2F4FA5'
+        toggleBtn.style["border-color"] = '#007bff'
         toggleBtn.innerText = '+ Post'
     }
 }
