@@ -208,8 +208,12 @@ function submitNewPost(evt, obj){
     })
     .then(resp => resp.json())
     .then(respJSON => {
+        if (respJSON.errors) {
+            console.log(respJSON)
+           return alert(respJSON.errors[0])
+        }
+        
         let newPost = makePostCard(respJSON, obj)
-        if (newPost.span){
         let deleteBtn = document.createElement('button')
             deleteBtn.className = 'delete-post btn'
             deleteBtn.innerText = 'Delete Post'
@@ -219,9 +223,6 @@ function submitNewPost(evt, obj){
             })
             newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
-    } else {
-        alert(respJSON.errors[0])
-    }
     })
 }
 
