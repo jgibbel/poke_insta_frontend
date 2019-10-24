@@ -220,7 +220,7 @@ function submitNewPost(evt, obj){
             newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
     } else {
-        alert(respJSON.errors)
+        alert(respJSON.errors[0])
     }
     })
 }
