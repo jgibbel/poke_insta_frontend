@@ -4,6 +4,10 @@ html body {
     padding: 65px;
 }
 
+.btn-primary{
+    background-color: #2F4FA5;
+}
+
 .container-fluid {
     background-color: #2F4FA5;
     position: fixed;
@@ -71,7 +75,8 @@ html body {
 }
 
 .delete-post{
-    background: grey;
+    background: rgb(154, 45, 45);
+    color: white;
 }
 
 .selected-posts-container{
