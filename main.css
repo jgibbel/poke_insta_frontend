@@ -5,6 +5,13 @@ html body {
 
 .container-fluid {
     background-color: #2F4FA5;
+    position: fixed;
+    top: 0;
+}
+
+.insta-content {
+
+    
 }
 
 .card{
