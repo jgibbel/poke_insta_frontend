@@ -261,8 +261,6 @@ function createFollowingDropdown(obj){
             let x = evt.target.value
             createPosts(obj.follows[x])
         })
-
-    followingDropdown.append(followingSelection)
 }
 
 // Loads posts for the pokemon selected in the Following Dropdown

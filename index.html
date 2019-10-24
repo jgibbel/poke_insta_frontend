@@ -4,12 +4,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-    <div class="container-fluid">
-        <form class="pokemon-dropdown-form">
-            <select class="pokemon-dropdown-select">
-                <option value="" disabled selected>Select a Pokemon to View</option>
-            </select>
-        </form>
+    <div class="container-fluid fixed-top">
+        <nav class="navbar">
+            <div class="pokemon-dropdown">
+                <select class="pokemon-dropdown-select">
+                    <option value="" disabled selected>Select a Pokemon to View</option>
+                </select>
+            </div>
+
+            <br>
+            
+            <div class="following-dropdown">
+                <select class="following-dropdown-select"></select>
+            </div>
+        </nav>
     </div>
     
     <div class="insta-content">
@@ -22,10 +30,6 @@
             </div>
             <br>
             <div class="following-posts-container col-sm">
-                <div class="following-dropdown">
-                    <select class="following-dropdown-select"></select>
-                </div>
-                <br>
                 <div class="selected-posts-container row justify-content-center"></div>
             </div>
         </div>
