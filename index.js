@@ -208,13 +208,11 @@ function createProfile(obj){
 
 // Delete button exists only for the selected pokemon's own posts and not others
 function deletePost(post){
-    // console.log(post)
     fetch(`http://localhost:3000/posts/${post.id}`, {
         method: 'DELETE'
     })
     .then(resp => resp.json())
     .then(respJSON => {
-        console.log(respJSON)
         let postCount = document.querySelector('.post-count-span')
         postCount.innerText = parseInt(postCount.innerText) - 1
     })
@@ -246,11 +244,12 @@ function submitNewPost(evt, obj){
         let deleteBtn = document.createElement('button')
             deleteBtn.className = 'delete-post btn'
             deleteBtn.innerText = 'Delete Post'
-            deleteBtn.addEventListener('click', evt => {  
-                deletePost(newPost)
-                newPost.remove()
+            deleteBtn.addEventListener('click', evt => {
+                let postToDelete = evt.target.parentElement
+                deletePost(respJSON)
+                postToDelete.remove()
             })
-            newPost.append(deleteBtn)
+        newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
 
         postCount.innerText = parseInt(postCount.innerText) + 1
