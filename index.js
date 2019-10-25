@@ -96,7 +96,12 @@ function createProfile(obj){
         
         let postsCount = document.createElement('h5')
             postsCount.className = 'posts-count'
-            postsCount.innerText = obj.posts.length === 1 ? ' post' : ' posts'
+
+            let counter = document.createElement('span')
+                counter.className = 'post-posts'
+                counter.innerText = obj.posts.length === 1 ? ' post' : ' posts'
+
+            postsCount.append(counter)
 
             let postSpan = document.createElement('span')
                 postSpan.className = 'post-count-span'
@@ -214,7 +219,9 @@ function deletePost(post){
     .then(resp => resp.json())
     .then(respJSON => {
         let postCount = document.querySelector('.post-count-span')
+        let posts = document.querySelector('.post-posts')
         postCount.innerText = parseInt(postCount.innerText) - 1
+        posts.innerText = parseInt(postCount.innerText) === 1 ? ' post' : ' posts'
     })
 }
 
@@ -240,6 +247,7 @@ function submitNewPost(evt, obj){
            return alert(respJSON.errors[0])
         }
         let postCount = document.querySelector('.post-count-span')
+        let posts = document.querySelector('.post-posts')
         let newPost = makePostCard(respJSON, obj)
         let deleteBtn = document.createElement('button')
             deleteBtn.className = 'delete-post btn'
@@ -251,8 +259,8 @@ function submitNewPost(evt, obj){
             })
         newPost.append(deleteBtn)
         myPostsDiv.prepend(newPost)
-
         postCount.innerText = parseInt(postCount.innerText) + 1
+        posts.innerText = parseInt(postCount.innerText) === 1 ? ' post' : ' posts'
     })
 }
 
