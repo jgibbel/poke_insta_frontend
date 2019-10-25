@@ -77,6 +77,12 @@ html body {
     margin-left: 420px;
 }
 
+.following-profile{
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
 .post-card{
     margin: auto;
     margin-bottom: 20px;

@@ -76,7 +76,7 @@ function createProfile(obj){
 
                 let followerCount = document.createElement('h5')
                     followerCount.className = 'follower-count'
-                    followerCount.innerText = ' followers'
+                    followerCount.innerText = obj.followers.length === 1 ? ' follower' : ' followers'
 
                     let countSpan = document.createElement('span')
                         countSpan.innerText = `${obj.followers.length}`
@@ -96,7 +96,7 @@ function createProfile(obj){
         
         let postsCount = document.createElement('h5')
             postsCount.className = 'posts-count'
-            postsCount.innerText = ' posts'
+            postsCount.innerText = obj.posts.length === 1 ? ' post' : ' posts'
 
             let postSpan = document.createElement('span')
                 postSpan.className = 'post-count-span'
@@ -291,10 +291,50 @@ function createFollowingDropdown(obj){
         })
 
         createPosts(obj.follows[0])
+        makeFollowingProfile(obj.follows[0])
         followingSelection.addEventListener('change', evt => {
             let x = evt.target.value
             createPosts(obj.follows[x])
+            makeFollowingProfile(obj.follows[x])
         })
+}
+
+function makeFollowingProfile(obj){
+    console.log(obj)
+    let profileCard = document.createElement('div')
+        profileCard.className = 'card following-profile'
+        profileCard.style.width = '15rem'
+
+        let profileHeader = document.createElement('div')
+            profileHeader.className = 'profile-header'
+            profileHeader.style["background-color"] = 'black'
+            profileHeader.style.color = 'white'
+
+            let profileName = document.createElement('h3')
+                profileName.innerText = `${obj.species}`
+                profileName.className = 'pokemon-name'
+                profileName.style["background-color"] = 'black'
+            
+            profileHeader.append(profileName)
+        
+        let postsCount = document.createElement('h5')
+            postsCount.className = 'posts-count'
+            postsCount.innerText = obj.posts.length === 1 ? ' post' : ' posts'
+            postsCount.style.background = 'grey'
+
+            let postSpan = document.createElement('span')
+                postSpan.className = 'post-count-span'
+                postSpan.innerText = obj.posts.length
+
+            postsCount.prepend(postSpan)
+
+        let profilePic = document.createElement('img')
+            profilePic.className = 'card-img-top'
+            profilePic.src = `${obj.image}`
+            profilePic.alt = `${obj.species}-pic`
+        
+    profileCard.append(profileHeader, postsCount, profilePic)
+    chosenFollow.prepend(profileCard)
 }
 
 // Loads posts for the pokemon selected in the Following Dropdown
