@@ -299,8 +299,8 @@ function createFollowingDropdown(obj){
         })
 }
 
+//Creates a profile for a selected Following to display
 function makeFollowingProfile(obj){
-    console.log(obj)
     let profileCard = document.createElement('div')
         profileCard.className = 'card following-profile'
         profileCard.style.width = '15rem'
