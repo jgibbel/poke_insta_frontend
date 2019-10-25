@@ -17,7 +17,7 @@ get("http://localhost:3000/pokemons")
         let newOption = document.createElement('option')
         newOption.className = 'selected'
         newOption.value = opt[0]
-        newOption.innerText = opt[1]
+        newOption.innerText = `${opt[0]}. ${opt[1]}`
         selects.append(newOption)
     })
 })
@@ -293,7 +293,7 @@ function createFollowingDropdown(obj){
             let followingOption = document.createElement('option')
                 followingOption.className = 'selected'
                 followingOption.value = i
-                followingOption.innerText = following.species
+                followingOption.innerText = `${following.following_id}. ${following.species}`
             followingSelection.append(followingOption)
             i += 1
         })
