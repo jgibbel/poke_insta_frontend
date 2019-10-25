@@ -307,13 +307,10 @@ function makeFollowingProfile(obj){
 
         let profileHeader = document.createElement('div')
             profileHeader.className = 'profile-header'
-            profileHeader.style["background-color"] = 'black'
-            profileHeader.style.color = 'white'
 
             let profileName = document.createElement('h3')
                 profileName.innerText = `${obj.species}`
                 profileName.className = 'pokemon-name'
-                profileName.style["background-color"] = 'black'
             
             profileHeader.append(profileName)
         
