@@ -25,11 +25,11 @@ html body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #B0A8A8;
+    background-color: grey;
 }
 
 .posts-count{
-    background: #E9DDDD;
+    background: #B0A8A8;
     text-align: center;
 }
 
@@ -124,12 +124,13 @@ html body {
 }
 
 .pokemon-name{
-    background-color: grey;
+    background-color: black;
+    color: white;
     text-align: center;
 }
 
 .profile-header{
-    background-color: grey;
+    background-color: black;
 }
 
 .profile-card {
